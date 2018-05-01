@@ -7,7 +7,11 @@ This repository is a pipeline built for post-GWAS analysis. With GWAS summary st
 
 ## Workflow
 <img src="./docs/workflow.png" width="200">
+
 ## Quick start
+
 ### Dependency
+
 ### Setup paths
+
 ### Input format
