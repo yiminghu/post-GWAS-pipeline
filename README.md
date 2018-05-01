@@ -14,4 +14,3 @@ This repository is a pipeline built for post-GWAS analysis. With GWAS summary st
 
 ### Setup paths
 
-### Input format
