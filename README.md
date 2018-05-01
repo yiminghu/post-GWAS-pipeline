@@ -4,3 +4,10 @@ This repository is a pipeline built for post-GWAS analysis. With GWAS summary st
 * *[Heritability estimation](https://github.com/bulik/ldsc)/annotation-stratified enrichment analysis*
 * *[GNOVA](https://github.com/xtonyjiang/GNOVA) genetic correlation estimation with 2419 UKB traits + 210 published GWAS*
 * *[UTMOST](https://github.com/Joker-Jerome/UTMOST) cross-tissue gene-trait association analysis*
+
+## Pipeline workflow
+
+## Quick start
+### Dependency
+### Setup paths
+### Input format
