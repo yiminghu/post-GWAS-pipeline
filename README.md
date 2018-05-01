@@ -5,7 +5,7 @@ This repository is a pipeline built for post-GWAS analysis. With GWAS summary st
 * *[GNOVA](https://github.com/xtonyjiang/GNOVA) genetic correlation estimation with 2419 UKB traits + 210 published GWAS*
 * *[UTMOST](https://github.com/Joker-Jerome/UTMOST) cross-tissue gene-trait association analysis*
 
-## Pipeline workflow
+## Workflow
 <img src="./docs/workflow.png" width="200">
 ## Quick start
 ### Dependency
