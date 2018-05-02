@@ -22,7 +22,7 @@ Sig_by_FDR_list = 1:length(list.disease)
 pV = rep(-1, length(list.disease))
 
 for (i in 1:length(list.disease)){
-  gnova_output = paste0(ns_output, trait, '/', trait, '_', list.disease[i], ".txt")
+  gnova_output = paste0(ns_output, '/', trait, '_', list.disease[i], ".txt")
   gnova_result = read.table(gnova_output, header=T)
   
   pval = gnova_result[1, "pvalue"]
@@ -53,11 +53,12 @@ res_table[fdrV<fdr_cut,6] = rep('*', sum(fdrV<fdr_cut))
 res_table[fdrV>fdr_cut,6] = rep('', sum(fdrV>fdr_cut))
 output_file = data.frame(list.disease, u$Categ, u$Trait, res_table)
 colnames(output_file)[1:3] = c("Index", "Source", "Phenotype")
-output_DIR = paste0(out_prefix, trait, ".txt")
-Sig_by_P_DIR = paste0(out_prefix, 'sig_by_p_', trait, ".txt")
-Sig_by_FDR_DIR = paste0(out_prefix, 'sig_by_fdr_', trait, ".txt")
-write.table(output_file, file=output_DIR, quote = F, sep ="\t", row.names = F, col.names = T)  
-write.csv(u[Sig_by_P_list,], file=Sig_by_P_DIR, row.names = F)  
-write.csv(u[Sig_by_FDR_list,], file=Sig_by_FDR_DIR, row.names = F)  
-
+output_DIR = paste0(out_prefix, trait, ".csv")
+#Sig_by_P_DIR = paste0(out_prefix, 'sig_by_p_', trait, ".txt")
+#Sig_by_FDR_DIR = paste0(out_prefix, 'sig_by_fdr_', trait, ".txt")
+write.csv(output_file, file=output_DIR, row.names = F)  
+#write.table(output_file, file=output_DIR, quote = F, sep ="\t", row.names = F, col.names = T)  
+#write.csv(u[Sig_by_P_list,], file=Sig_by_P_DIR, row.names = F)  
+#write.csv(u[Sig_by_FDR_list,], file=Sig_by_FDR_DIR, row.names = F)  
+print(paste0("GNOVA summary table written to ", output_DIR))
 
