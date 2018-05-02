@@ -1,24 +1,25 @@
 options(stringsAsFactors=F)
-library("qqman")
-library("data.table")
-library("GWASTools")
+suppressMessages(library("qqman"))
+suppressMessages(library("data.table"))
+suppressMessages(library("GWASTools"))
 args = commandArgs(trailingOnly=TRUE)
 utmost_results = args[1] ## path to utmost joint test output
 out_prefix = args[2] ## prefix to gene-level Manhattan plot/qq plot/significant gene table
-gene_table = args[3] ## gene position info
+aname = args[3] ## trait name
+gene_table = args[4] ## gene position info
 
 
 ## joint GBJ results summary
 a = as.data.frame(fread(paste0(utmost_results), header=T, sep="\t"))
 #gene    test_score      p_value
 a = unique(a)
-a = final[complete.cases(a), ]
+a = a[complete.cases(a), ]
 thres = 0.05/nrow(a)
-write.csv(a[a$pvalue<thres,], paste0(out_prefix,'/utmost_joint_sig_genes.csv'), row.names=F)
+write.csv(a[a$p_value<thres,], paste0(out_prefix,'/utmost_joint_sig_genes.csv'), row.names=F)
 
 
 ##### plot #####
-gene_table = "/ysm-gpfs/pi/zhao/from_louise/bl537/GWAS/VA/metaxcan/GeneList.txt"
+#gene_table = "/ysm-gpfs/pi/zhao/from_louise/bl537/GWAS/VA/metaxcan/GeneList.txt"
 g = read.table(gene_table, header=T, sep="\t")
 d = a[,c(1,3)]
 colnames(d) = c("gene_name", "pvalue")  

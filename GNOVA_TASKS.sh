@@ -16,13 +16,13 @@ REF_GENOME_PATH=/ysm-gpfs/pi/zhao/from_louise/yh367/GNOVA/genotype_1KG_eur_SNPma
 INPUT & OUTPUT SETTINGS
 '''
 
-output_path="${temp}/gnova_ns/" #1 a folder to save all GNOVA output files (there will be ~2,500 files generated)
-mkdir output_path
-output_prefix=${TRAIT_NAME} #2 prefix of output files
+gnova_output_path="${TEMP}/gnova_ns/" #1 a folder to save all GNOVA output files (there will be ~2,500 files generated)
+mkdir gnova_output_path
+gnova_output_prefix=${TRAIT_NAME} #2 prefix of output files
 sumstats=${MUNGED_PATH} #3 path to input munged summary stats
 task_file="${TASK_FOLDER}/gnova_ns.task" #5 output path for simple queue task list
 
 '''
 TASK FILES SETTINGS (for parallell running purpose)
 '''
-Rscript --vanilla gc_gnova_cmd.R ${output_path} ${output_prefix} ${sumstats} ${GNOVA_PATH} ${task_file} ${REF_TABLE_PATH} ${REF_GENOME_PATH}
+Rscript --vanilla gc_gnova_cmd.R ${gnova_output_path} ${gnova_output_prefix} ${sumstats} ${GNOVA_PATH} ${task_file} ${REF_TABLE_PATH} ${REF_GENOME_PATH}

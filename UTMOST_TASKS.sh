@@ -15,23 +15,26 @@ INPUT & OUTPUT SETTINGS
 '''
 sumstats_path=/ysm-gpfs/pi/zhao/from_louise/yh367/VA/workflow/qc_passed_with_rs/
 sumstats_file=set04162018A.txt
-single_tissue_output_path=/ysm-gpfs/pi/zhao/from_louise/yh367/VA/workflow/gene_level_analysis/UTMOST/suicide/
-joint_output_path=/ysm-gpfs/pi/zhao/from_louise/yh367/VA/workflow/gene_level_analysis/UTMOST/suicide_joint/
-joint_output_prefix=suicide_GBJ
+utmost_single_tissue_output_path="${TEMP}/utmost_single_tissue/"
+utmost_joint_output_path="${TEMP}/utmost_joint/"
+mkdir ${utmost_single_tissue_output_path}
+mkdir ${utmost_joint_output_path}
+utmost_joint_output_prefix=${TRAIT_NAME}
 
 '''
 TASK FILES SETTINGS (for parallell running purpose)
 '''
-single_tissue_task_file=/ysm-gpfs/pi/zhao/from_louise/yh367/VA/workflow/gene_level_analysis/UTMOST/suicide_single_tissue.task
-joint_task_file=/ysm-gpfs/pi/zhao/from_louise/yh367/VA/workflow/gene_level_analysis/UTMOST/suicide_joint.task
+utmost_single_tissue_task_file="${TASK_FOLDER}/utmost_single_tissue.task"
+utmost_joint_task_file="${TASK_FOLDER}/utmost_joint_test.task"
+#utmost_joint_task_file=/ysm-gpfs/pi/zhao/from_louise/yh367/VA/workflow/gene_level_analysis/UTMOST/suicide_joint.task
 
 for tissue in ${TISSUE_LIST[@]}
 do
-task_single_tissue="python2 ${UTMOST_PATH}/single_tissue_association_test.py --model_db_path ${WEIGHT_DB_PATH}/${tissue}.db --covariance ${SINGLE_TISSUE_COV_PATH}/${tissue}.txt.gz --gwas_folder ${sumstats_path} --gwas_file_pattern ${sumstats_file} --snp_column SNP --effect_allele_column ALT --non_effect_allele_column REF --beta_column ALT_EFFSIZE --pvalue_column PVALUE --output_file ${single_tissue_output_path}/${tissue}.csv"
-echo $task_single_tissue >> ${single_tissue_task_file}
+task_single_tissue="python2 ${UTMOST_PATH}/single_tissue_association_test.py --model_db_path ${WEIGHT_DB_PATH}/${tissue}.db --covariance ${SINGLE_TISSUE_COV_PATH}/${tissue}.txt.gz --gwas_folder ${sumstats_path} --gwas_file_pattern ${sumstats_file} --snp_column SNP --effect_allele_column ALT --non_effect_allele_column REF --beta_column ALT_EFFSIZE --pvalue_column PVALUE --output_file ${utmost_single_tissue_output_path}/${tissue}.csv"
+echo $task_single_tissue >> ${utmost_single_tissue_task_file}
 done
-task_joint="python2 joint_GBJ_test.py --weight_db ${WEIGHT_DB_PATH}--output_dir ${joint_tissue_output_path} --cov_dir ${JOINT_TISSUE_COV_PATH} --input_folder ${single_tissue_output_path} --gene_info ${GENE_INFO} --output_name ${joint_output_prefix} --start_gene_index 1 --end_gene_index 17290"
-echo $task_joint >> ${joint_task_file}
+task_joint="python2 joint_GBJ_test.py --weight_db ${WEIGHT_DB_PATH} --output_dir ${utmost_joint_output_path} --cov_dir ${JOINT_TISSUE_COV_PATH} --input_folder ${single_tissue_output_path} --gene_info ${GENE_INFO} --output_name ${utmost_joint_output_prefix} --start_gene_index 1 --end_gene_index 17290"
+echo $task_joint >> ${utmost_joint_task_file}
 
-echo "SINGLE-TISSUE tasks written to ${task_single_tissue}!"
-echo "JOINT TEST tasks written to ${joint_task_file}!"
+echo "SINGLE-TISSUE tasks written to ${utmost_single_tissue_task_file}!"
+echo "JOINT TEST tasks written to ${utmost_joint_task_file}!"

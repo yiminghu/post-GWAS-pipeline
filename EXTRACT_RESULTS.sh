@@ -8,4 +8,4 @@ Rscript --vanilla extract_gc_gnova_results.R ${gnova_output_path} ${out_prefix} 
 
 ## generate UTMOST gene-level Manhattan plot/qq plot/significant gene table
 utmost_results="${utmost_joint_output_path}/${utmost_joint_output_prefix}_GTEx_1_17290.txt"
-Rscript --vanilla extract_utmost_results.R ${utmost_results} ${TEMP} ${GENE_TABLE}
+Rscript --vanilla extract_utmost_results.R ${utmost_results} ${TEMP} ${TRAIT_NAME} ${GENE_TABLE}
