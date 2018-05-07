@@ -6,7 +6,7 @@ This repository is a pipeline built for post-GWAS analysis. With GWAS summary st
 * *[UTMOST](https://github.com/Joker-Jerome/UTMOST) cross-tissue gene-trait association analysis*
 
 ## Workflow
-<img src="./docs/workflow.png" width="200">
+<img src="./pipeline.png" width="700">
 
 ## Quick start
 
