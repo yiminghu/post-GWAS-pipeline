@@ -17,6 +17,8 @@ parser.add_argument('--grandfolder', default=None, type=str,
                     help="Grand folder.")
 parser.add_argument('--ldsc_path', default=None, type=str,
                     help="path to ldsc software.")
+parser.add_argument('--locuszoom_path', default=None, type=str,
+                    help="path to ldsc software.")
 
 args = parser.parse_args()
 
@@ -44,6 +46,7 @@ if not os.path.exists(args.grandfolder+'/Standard/LocusZoom'):
 Study                        = args.study
 SumStats_file                = args.sumstats
 ldsc_path                    = args.ldsc_path
+locuszoom_path               = args
 jobfolder                    = args.grandfolder+'/joblist/'+Study
 LDSC_SumStats_folder         = args.grandfolder+'/LDSC/sumstats/'+Study
 LDSC_Results_folder          = args.grandfolder+'/LDSC/Results/'+Study
@@ -54,7 +57,7 @@ LocusZoom_folder             = args.grandfolder+'/Standard/LocusZoom/'+Study
 Population                   = args.population
 BaselineDIR                  = ldsc_path+'/Annotations/EUR/Baseline/baseline'#"/ysm-gpfs/pi/zhao/from_louise/ql68/Software/ldsc/Annotations/EUR/Baseline/baseline"
 AnnotDIR                     = ldsc_path+'/Annotations/EUR/GenoSkyline_Plus'   #"/ysm-gpfs/pi/zhao/from_louise/ql68/Software/ldsc/Annotations/EUR/GenoSkyline_Plus"
-InputDIR                     = ldsc_path+'/Annotations/Input'   #"/ysm-gpfs/pi/zhao/from_louise/ql68/Software/ldsc/Input"
+InputDIR                     = ldsc_path+'/Input'   #"/ysm-gpfs/pi/zhao/from_louise/ql68/Software/ldsc/Input"
 
     
 if not os.path.exists(jobfolder):
@@ -78,14 +81,14 @@ if not os.path.exists(LocusZoom_folder):
 
     
 #### Step 1. Manhattan and QQ Plots ####
-outdir = jobfolder+"/step1a_"+Study
+outdir = jobfolder+"/standardGWAS_"+Study
 outfile=open(outdir,'w')
-a = "source ~/.bashrc; module load R; aname="+Study+"; SumStats_file="+SumStats_file+"; mfolder="+ManhattanPlot_folder+"; qfolder="+qqPlot_folder+"; sfolder="+sig_folder+"; lfolder="+LocusZoom_folder+"; jfolder="+jobfolder+"; Population="+Population+"; Rscript --vanilla /gpfs/ysm/pi/zhao/from_louise/bl537/GWAS/VA/Pipeline/Script/Manhattan_QQ_Significant.R ${aname} ${SumStats_file} ${mfolder} ${qfolder} ${sfolder} ${lfolder} ${jfolder} ${Population};"
+a = "source ~/.bashrc; module load R; aname="+Study+"; SumStats_file="+SumStats_file+"; mfolder="+ManhattanPlot_folder+"; qfolder="+qqPlot_folder+"; sfolder="+sig_folder+"; lfolder="+LocusZoom_folder+"; jfolder="+jobfolder+"; Population="+Population+"; Locuszoom_path="+locuszoom_path+"; Rscript --vanilla /gpfs/ysm/pi/zhao/from_louise/bl537/GWAS/VA/Pipeline/Script/Manhattan_QQ_Significant.R ${aname} ${SumStats_file} ${mfolder} ${qfolder} ${sfolder} ${lfolder} ${jfolder} ${Population} ${Locuszoom_path};"
 outfile.write(a+'\n')
 outfile.close()
 
 #### Step2a. LDSC sumstats ####
-outdir = jobfolder+"/step2a_"+Study
+outdir = jobfolder+"/munge_"+Study
 outfile = open(outdir,'w')
 a = "source ~/.bashrc; SumStats_file="+SumStats_file+"; outfolder="+LDSC_SumStats_folder+"; aname="+Study+"; cd "+ldsc_path+"; python2.7 munge_sumstats.py --out ${outfolder}/${aname}  --sumstats ${SumStats_file};"        
 outfile.write(a+'\n')
@@ -93,7 +96,7 @@ outfile.close()
     
 #### Step2b. LDSC regression 3 tiers ####
 Tier = "Tier1"
-outdir = jobfolder+"/step2b_"+Study+"_"+Tier
+outdir = jobfolder+"/annotation_enrichment_"+Study+"_"+Tier
 outfile = open(outdir,'w')
 BaselineDIR = "/ysm-gpfs/pi/zhao/from_louise/ql68/Software/ldsc/Annotations/EUR/Baseline/baseline"
 AnnotDIR    = "/ysm-gpfs/pi/zhao/from_louise/ql68/Software/ldsc/Annotations/EUR/GenoSkyline_Plus"
@@ -103,7 +106,7 @@ outfile.write(a+'\n')
 outfile.close()
     
 Tier = "Tier2"
-outdir = jobfolder+"/step2b_"+Study+"_"+Tier
+outdir = jobfolder+"/annotation_enrichment_"+Study+"_"+Tier
 outfile = open(outdir,'w')
 #BaselineDIR = "/ysm-gpfs/pi/zhao/from_louise/ql68/Software/ldsc/Annotations/EUR/Baseline/baseline"
 #AnnotDIR    = "/ysm-gpfs/pi/zhao/from_louise/ql68/Software/ldsc/Annotations/EUR/GenoSkyline_Plus"
@@ -113,7 +116,7 @@ outfile.write(a+'\n')
 outfile.close()
     
 Tier = "Tier3"
-outdir = jobfolder+"/step2b_"+Study+"_"+Tier
+outdir = jobfolder+"/annotation_enrichment_"+Study+"_"+Tier
 outfile = open(outdir,'w')
 #BaselineDIR = "/ysm-gpfs/pi/zhao/from_louise/ql68/Software/ldsc/Annotations/EUR/Baseline/baseline"
 #AnnotDIR    = "/ysm-gpfs/pi/zhao/from_louise/ql68/Software/ldsc/Annotations/EUR/GenoSkyline_Plus"
@@ -124,7 +127,7 @@ outfile.close()
     
 #### Step2c. LDSC regression heritability ####
 sub = "Heritability"
-outdir = jobfolder+"/step2c_"+Study+"_"+sub
+outdir = jobfolder+"/ldsc_"+Study+"_"+sub
 outfile = open(outdir,'w')
 #InputDIR    = "/ysm-gpfs/pi/zhao/from_louise/ql68/Software/ldsc/Input"
 a = "source ~/.bashrc; sub="+sub+"; outfolder="+LDSC_Results_folder+"/${sub}; aname="+Study+"; sumstatsDIR="+LDSC_SumStats_folder+"; InputDIR="+InputDIR+"; cd "+ldsc_path+"; python2.7 ldsc.py --h2 ${sumstatsDIR}/${aname}.sumstats.gz --ref-ld-chr ${InputDIR}/EUR/eur_w_ld_chr/ --w-ld-chr ${InputDIR}/EUR/eur_w_ld_chr/ --out ${outfolder}/${aname};"

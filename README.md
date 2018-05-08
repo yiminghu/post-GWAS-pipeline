@@ -27,7 +27,11 @@ install.packages('GWASTools')
 
 #### 1.2 LocusZoom
 Software [download](https://github.com/statgen/locuszoom-standalone) and [wiki](http://genome.sph.umich.edu/wiki/LocusZoom_Standalone).
-
+```bash
+cd ${PIPELINE_PATH}/post-GWAS-pipeline
+wget https://statgen.sph.umich.edu/locuszoom/download/locuszoom_1.4.tgz
+tar xvzf locuszoom_1.4.tgz
+```
 #### 1.3 LDSC
 More info can be found on https://github.com/bulik/ldsc.
 ```bash
@@ -71,7 +75,7 @@ wget http://genocanyon.med.yale.edu/GenoSkylineFiles/GenoSkylinePlus/LD_score_fi
 tar xvzf LD_score_files_1KGphase3.tar.gz
 ```
 
-### 1.4 GNOVA
+#### 1.4 GNOVA
 More usage instructions can be found at https://github.com/xtonyjiang/GNOVA.
 ```bash
 cd ${PIPELINE_PATH}/post-GWAS-pipeline/ ## return to post-GWAS-pipeline/
@@ -83,8 +87,14 @@ pip install pandas --user
 pip install sklearn --user
 pip install bitarray --user
 ```
+Download reference genome file
+```bash
+cd GNOVA
+wget http://genocanyon.med.yale.edu/GNOVAFiles/genotype_1KG_eur_SNPmaf5.tar.gz
+tar xvzf genotype_1KG_eur_SNPmaf5.tar.gz
+```
 
-### 1.5 UTMOST
+#### 1.5 UTMOST
 More usage instructions can be found at https://github.com/Joker-Jerome/UTMOST.
 ```bash
 cd ${PIPELINE_PATH}/post-GWAS-pipeline/ ## return to post-GWAS-pipeline/
@@ -107,11 +117,18 @@ tar -zxvf covariance_tissue.tar.gz
 unzip covariance_joint.zip
 ```
 
-### 2. Setup paths
+### 2. Setup global parameters (paths)
+```bash
+LOCUSZOOM_PATH=${PIPELINE_PATH}/post-GWAS-pipeline/locuszoom/
+LDSC_PATH=${PIPELINE_PATH}/post-GWAS-pipeline/ldsc/
+GNOVA_PATH=${PIPELINE_PATH}/post-GWAS-pipeline/gnova/
+UTMOST_PATH=${PIPELINE_PATH}/post-GWAS-pipeline/UTMOST/
+REF_TABLE_PATH=/gpfs/ysm/pi/zhao/from_louise/yh367/VA/workflow/GNOVA/sumstats/match_table_full.csv
+```
+**Note: REF_TABLE_PATH is a table contains paths to munged summary statistics of all reference GWAS (2,419 UKB + 210 publicly available GWAS). If any new reference GWAS are added in the future or any of the existing munged summary statistics are changed, please update this table accordingly!**
+### 3. Reformatting Sumstats/QC
 
-## Reformatting Sumstats/QC
+### 4. Generating task lists for all modules
 
-## Generating task lists for all modules
-
-## Generating summary for GNOVA and UTMOST
+### 5. Generating summary for GNOVA and UTMOST
 

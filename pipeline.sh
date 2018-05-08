@@ -1,8 +1,10 @@
 '''
 GLOBAL parameters
 '''
-
-
+LOCUSZOOM_PATH=
+LDSC_PATH=
+GNOVA_PATH=
+UTMOST_PATH=
 '''
 Input GWAS parameters
 '''
