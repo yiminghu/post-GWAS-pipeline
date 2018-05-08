@@ -127,7 +127,7 @@ REF_TABLE_PATH=/gpfs/ysm/pi/zhao/from_louise/yh367/VA/workflow/GNOVA/sumstats/ma
 ```
 **Note: REF_TABLE_PATH is a table contains paths to munged summary statistics of all reference GWAS (2,419 UKB + 210 publicly available GWAS). If any new reference GWAS are added in the future or any of the existing munged summary statistics are changed, please update this table accordingly!**
 
-### 3. Reformatting Sumstats/QC
+### 3. Reformatting Sumstats / QC
 The pipeline assumes the following input format:
 
 |CHROM  |POS    |A1     |A2     |BETA      |P        | SNP      |N      |
@@ -137,6 +137,8 @@ The pipeline assumes the following input format:
 |1      |752894 |T      |C      |-0.0479547|0.0577561| rs3131971| 137044|
 |1      |753405 |C      |A      |-0.0495965|0.0420519| rs3115860| 137044|
 |1      |753425 |T      |C      |-0.0495346|0.0418289| rs3131970| 137044|
+
+We also provide reformatting script for certain type of input (to be continued).
 
 ### 4. Generating task lists for all modules
 
