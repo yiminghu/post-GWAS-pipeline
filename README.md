@@ -8,14 +8,16 @@ This repository is a pipeline built for post-GWAS analysis. With GWAS summary st
 ## Overview of the pipeline
 <img src="./pipeline.png" width="900">
 
-## Quick-start
+## Tutorial
 ### Clone the repo
 ```bash
+PIPELINE_PATH=/input the path you want to install pipeline here/
+cd ${PIPELINE_PATH}
 git clone https://github.com/yiminghu/post-GWAS-pipeline.git
-cd post-GWAS-pipeline
+cd ${PIPELINE_PATH}/post-GWAS-pipeline
 ```
-### Install dependency
-#### 1. R related (for Standard GWAS module and extracting results)
+### 1. Install dependency
+#### 1.1 R related (for Standard GWAS module and extracting results)
 ```bash
 ## with in R interface
 install.packages('qqman')
@@ -23,15 +25,16 @@ install.packages('data.table')
 install.packages('GWASTools')
 ```
 
-#### 2. LocusZoom
+#### 1.2 LocusZoom
 Software [download](https://github.com/statgen/locuszoom-standalone) and [wiki](http://genome.sph.umich.edu/wiki/LocusZoom_Standalone).
 
-#### 3. LDSC
+#### 1.3 LDSC
 More info can be found on https://github.com/bulik/ldsc.
 ```bash
+cd ${PIPELINE_PATH}/post-GWAS-pipeline
 ## install and setup python dependency
 git clone git@github.com:bulik/ldsc.git
-cd ldsc
+cd ./ldsc
 conda env create --file environment.yml
 source activate ldsc
 ```
@@ -54,7 +57,7 @@ tar xvzf weights_hm3_no_hla.tgz
 
 Download annotations
 ```bash
-cd ../.. ## return to ldsc/
+cd ${PIPELINE_PATH}/post-GWAS-pipeline/ldsc ## return to ldsc/
 mkdir Annotations
 mkdir Annotations/EUR
 mkdir Annotations/EUR/Baseline
@@ -68,10 +71,10 @@ wget http://genocanyon.med.yale.edu/GenoSkylineFiles/GenoSkylinePlus/LD_score_fi
 tar xvzf LD_score_files_1KGphase3.tar.gz
 ```
 
-### GNOVA
+### 1.4 GNOVA
 More usage instructions can be found at https://github.com/xtonyjiang/GNOVA.
 ```bash
-cd ../../.. ## to post-GWAS-pipeline/
+cd ${PIPELINE_PATH}/post-GWAS-pipeline/ ## return to post-GWAS-pipeline/
 git clone git@github.com:xtonyjiang/GNOVA.git
 ## install python dependency if needed
 pip install numpy --user
@@ -81,10 +84,10 @@ pip install sklearn --user
 pip install bitarray --user
 ```
 
-### UTMOST
+### 1.5 UTMOST
 More usage instructions can be found at https://github.com/Joker-Jerome/UTMOST.
 ```bash
-cd ..
+cd ${PIPELINE_PATH}/post-GWAS-pipeline/ ## return to post-GWAS-pipeline/
 git clone https://github.com/Joker-Jerome/UTMOST.git
 ## install dependency
 pip install numpy --user
@@ -104,7 +107,7 @@ tar -zxvf covariance_tissue.tar.gz
 unzip covariance_joint.zip
 ```
 
-## Setup paths
+### 2. Setup paths
 
 ## Reformatting Sumstats/QC
 
