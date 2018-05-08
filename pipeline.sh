@@ -1,6 +1,11 @@
 '''
 GLOBAL parameters
 '''
+
+
+'''
+Input GWAS parameters
+'''
 TRAIT_NAME=example
 sumstats=/gpfs/ysm/pi/zhao/from_louise/bl537/GWAS/VA/Pipeline/Grand/example/SumStats.txt
 grandfolder=/gpfs/ysm/pi/zhao/from_louise/bl537/GWAS/VA/Pipeline/Grand
