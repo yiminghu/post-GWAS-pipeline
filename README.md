@@ -1,6 +1,6 @@
 # post-GWAS-pipeline
-This repository is a pipeline built for post-GWAS analysis. With GWAS summary statistics as input, the pipeline will generate the following analysis:
-* *Manhattan plot/QQ plot/[LocusZoom](https://genome.sph.umich.edu/wiki/LocusZoom_Standalone)*
+This repository is a pipeline built for post-GWAS analysis. With GWAS summary statistics as input, the pipeline contains four major modules:
+* *Standard GWAS analysis: Manhattan plot/QQ plot/[LocusZoom](https://genome.sph.umich.edu/wiki/LocusZoom_Standalone)*
 * *[Heritability estimation](https://github.com/bulik/ldsc)/[annotation](http://genocanyon.med.yale.edu/GenoSkyline)-stratified enrichment analysis*
 * *[GNOVA](https://github.com/xtonyjiang/GNOVA) genetic correlation estimation with 2419 UKB traits + 210 published GWAS*
 * *[UTMOST](https://github.com/Joker-Jerome/UTMOST) cross-tissue gene-trait association analysis*
@@ -69,10 +69,16 @@ tar xvzf LD_score_files_1KGphase3.tar.gz
 ```
 
 ### GNOVA
+See detailed instruction at https://github.com/xtonyjiang/GNOVA.
 
 ### UTMOST
+See detailed instruction at https://github.com/Joker-Jerome/UTMOST.
 
 ## Setup paths
 
 ## Reformatting Sumstats/QC
 
+## Generating task lists for all modules
+
+## Generating summary for GNOVA and UTMOST
+ 
