@@ -69,10 +69,40 @@ tar xvzf LD_score_files_1KGphase3.tar.gz
 ```
 
 ### GNOVA
-See detailed instruction at https://github.com/xtonyjiang/GNOVA.
+More usage instructions can be found at https://github.com/xtonyjiang/GNOVA.
+```bash
+cd ../../.. ## to post-GWAS-pipeline/
+git clone git@github.com:xtonyjiang/GNOVA.git
+## install python dependency if needed
+pip install numpy --user
+pip install scipy --user
+pip install pandas --user
+pip install sklearn --user
+pip install bitarray --user
+```
 
 ### UTMOST
-See detailed instruction at https://github.com/Joker-Jerome/UTMOST.
+More usage instructions can be found at https://github.com/Joker-Jerome/UTMOST.
+```bash
+cd ..
+git clone https://github.com/Joker-Jerome/UTMOST.git
+## install dependency
+pip install numpy --user
+pip install scipy --user
+pip install pandas --user
+pip install -Iv rpy2==2.8.6 --user
+```
+Download pre-calculated cross-tissue imputation models and covariance matrices
+```bash
+cd ./UTMOST
+wget --load-cookies /tmp/cookies.txt "https://drive.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies  /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://drive.google.com/uc?export=download&id=1u8CRwb6rZ-gSPl89qm3tKpJArUT8XrEe' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1u8CRwb6rZ-gSPl89qm3tKpJArUT8XrEe" -O sample_data.zip && rm -rf /tmp/cookies.txt
+unzip sample_data.zip
+cd sample_data
+wget --load-cookies /tmp/cookies.txt "https://drive.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies  /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://drive.google.com/uc?export=download&id=1Kh3lHyTioKIXqCsREmsAyC-dS49KVO9G' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1Kh3lHyTioKIXqCsREmsAyC-dS49KVO9G" -O covariance_tissue.tar.gz && rm -rf /tmp/cookies.txt
+wget --load-cookies /tmp/cookies.txt "https://drive.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies  /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://drive.google.com/uc?export=download&id=1tqIW5Ms8p1StX7WXXWVa4TGKb5q58TPA' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1tqIW5Ms8p1StX7WXXWVa4TGKb5q58TPA" -O covariance_joint.zip && rm -rf /tmp/cookies.txt
+tar -zxvf covariance_tissue.tar.gz
+unzip covariance_joint.zip
+```
 
 ## Setup paths
 
@@ -81,4 +111,4 @@ See detailed instruction at https://github.com/Joker-Jerome/UTMOST.
 ## Generating task lists for all modules
 
 ## Generating summary for GNOVA and UTMOST
- 
+
