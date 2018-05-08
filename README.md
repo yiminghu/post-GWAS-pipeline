@@ -129,7 +129,9 @@ REF_TABLE_PATH=/gpfs/ysm/pi/zhao/from_louise/yh367/VA/workflow/GNOVA/sumstats/ma
 
 ### 3. Reformatting Sumstats/QC
 The pipeline assumes the following input format:
+
 |CHROM  |POS    |A2  |A1 |BETA      |P        | SNP      |N      |
+| ------------- |:-------------:| -----:| -----:| -----:| -----:| -----:| -----:|
 |1      |751343 |T   |A  |0.0477592 |0.0571189|rs28544273| 137044|
 |1      |751756 |T   |C  |0.0476388 |0.0566586|rs28527770| 137044|
 |1      |752894 |T   |C  |-0.0479547|0.0577561| rs3131971| 137044|
@@ -137,6 +139,10 @@ The pipeline assumes the following input format:
 |1      |753425 |T   |C  |-0.0495346|0.0418289| rs3131970| 137044|
 
 ### 4. Generating task lists for all modules
+| CHROM        | Test score     | P value  |
+| ------------- |:-------------:| -----:|
+|      Gene A    | test score A               |  P value A        |
+|      Gene B    | test score B               |  P value B        |
 
 ### 5. Generating summary for GNOVA and UTMOST
 
