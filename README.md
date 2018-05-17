@@ -121,7 +121,7 @@ unzip covariance_joint.zip
 
 ### 2. Setup global parameters (paths)
 ```bash
-LOCUSZOOM_PATH=${PIPELINE_PATH}/post-GWAS-pipeline/locuszoom/
+LOCUSZOOM_PATH=${PIPELINE_PATH}/post-GWAS-pipeline/locuszoom/bin/locuszoom
 LDSC_PATH=${PIPELINE_PATH}/post-GWAS-pipeline/ldsc/
 GNOVA_PATH=${PIPELINE_PATH}/post-GWAS-pipeline/gnova/
 UTMOST_PATH=${PIPELINE_PATH}/post-GWAS-pipeline/UTMOST/
