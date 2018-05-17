@@ -86,7 +86,7 @@ outfile=open(outdir,'w')
 a = "source ~/.bashrc; module load R; aname="+Study+"; SumStats_file="+SumStats_file+"; mfolder="+ManhattanPlot_folder+"; qfolder="+qqPlot_folder+"; sfolder="+sig_folder+"; lfolder="+LocusZoom_folder+"; jfolder="+jobfolder+"; Population="+Population+"; Locuszoom_path="+locuszoom_path+"; Rscript --vanilla /gpfs/ysm/pi/zhao/from_louise/bl537/GWAS/VA/Pipeline/Script/Manhattan_QQ_Significant.R ${aname} ${SumStats_file} ${mfolder} ${qfolder} ${sfolder} ${lfolder} ${jfolder} ${Population} ${Locuszoom_path};"
 outfile.write(a+'\n')
 outfile.close()
-
+print 'Standard GWAS module task file written to '+outdir
 #### Step2a. LDSC sumstats ####
 outdir = jobfolder+"/munge_"+Study
 outfile = open(outdir,'w')
@@ -104,6 +104,7 @@ InputDIR    = "/ysm-gpfs/pi/zhao/from_louise/ql68/Software/ldsc/Input"
 a = "source ~/.bashrc; Tier="+Tier+"; outfolder="+LDSC_Results_folder+"/${Tier}; aname="+Study+"; sumstatsDIR="+LDSC_SumStats_folder+"; BaselineDIR="+BaselineDIR+"; AnnotDIR="+AnnotDIR+"; InputDIR="+InputDIR+"; cd "+ldsc_path+"; python2.7 ldsc.py --h2 ${sumstatsDIR}/${aname}.sumstats.gz --ref-ld-chr ${BaselineDIR}.,${AnnotDIR}/GenoSkyline_Plus_${Tier}. --w-ld-chr ${InputDIR}/EUR/weights/weights. --frqfile-chr ${InputDIR}/EUR/genotype/1000G.mac5eur. --overlap-annot --print-coefficients --out ${outfolder}/${aname};"
 outfile.write(a+'\n')
 outfile.close()
+print Tier+' annotation enrichment task file written to '+outdir
     
 Tier = "Tier2"
 outdir = jobfolder+"/annotation_enrichment_"+Study+"_"+Tier
@@ -114,7 +115,8 @@ outfile = open(outdir,'w')
 a = "source ~/.bashrc; Tier="+Tier+"; outfolder="+LDSC_Results_folder+"/${Tier}; aname="+Study+"; sumstatsDIR="+LDSC_SumStats_folder+"; BaselineDIR="+BaselineDIR+"; AnnotDIR="+AnnotDIR+"; InputDIR="+InputDIR+"; cd "+ldsc_path+"; python2.7 ldsc.py --h2 ${sumstatsDIR}/${aname}.sumstats.gz --ref-ld-chr ${BaselineDIR}.,${AnnotDIR}/GenoSkyline_Plus_${Tier}. --w-ld-chr ${InputDIR}/EUR/weights/weights. --frqfile-chr ${InputDIR}/EUR/genotype/1000G.mac5eur. --overlap-annot --print-coefficients --out ${outfolder}/${aname};"
 outfile.write(a+'\n')
 outfile.close()
-    
+print Tier+' annotation enrichment task file written to '+outdir
+
 Tier = "Tier3"
 outdir = jobfolder+"/annotation_enrichment_"+Study+"_"+Tier
 outfile = open(outdir,'w')
@@ -124,7 +126,8 @@ outfile = open(outdir,'w')
 a = "source ~/.bashrc; Tier="+Tier+"; outfolder="+LDSC_Results_folder+"/${Tier}; aname="+Study+"; sumstatsDIR="+LDSC_SumStats_folder+"; BaselineDIR="+BaselineDIR+"; AnnotDIR="+AnnotDIR+"; InputDIR="+InputDIR+"; cd "+ldsc_path+"; python2.7 ldsc.py --h2 ${sumstatsDIR}/${aname}.sumstats.gz --ref-ld-chr ${BaselineDIR}.,${AnnotDIR}/GenoSkyline_Plus_${Tier}. --w-ld-chr ${InputDIR}/EUR/weights/weights. --frqfile-chr ${InputDIR}/EUR/genotype/1000G.mac5eur. --overlap-annot --print-coefficients --out ${outfolder}/${aname};"
 outfile.write(a+'\n')
 outfile.close()
-    
+print Tier+' annotation enrichment task file written to '+outdir
+  
 #### Step2c. LDSC regression heritability ####
 sub = "Heritability"
 outdir = jobfolder+"/ldsc_"+Study+"_"+sub
@@ -132,4 +135,6 @@ outfile = open(outdir,'w')
 #InputDIR    = "/ysm-gpfs/pi/zhao/from_louise/ql68/Software/ldsc/Input"
 a = "source ~/.bashrc; sub="+sub+"; outfolder="+LDSC_Results_folder+"/${sub}; aname="+Study+"; sumstatsDIR="+LDSC_SumStats_folder+"; InputDIR="+InputDIR+"; cd "+ldsc_path+"; python2.7 ldsc.py --h2 ${sumstatsDIR}/${aname}.sumstats.gz --ref-ld-chr ${InputDIR}/EUR/eur_w_ld_chr/ --w-ld-chr ${InputDIR}/EUR/eur_w_ld_chr/ --out ${outfolder}/${aname};"
 outfile.write(a+'\n')
-outfile.close()   
+outfile.close()
+print 'Heritability estimation task file written to '+outdir
+

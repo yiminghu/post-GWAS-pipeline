@@ -13,8 +13,8 @@ sfolder    = args[5]
 lfolder    = args[6]
 jfolder    = args[7]
 population = args[8]
-
-locuszoom_path='/ysm-gpfs/pi/zhao/from_louise/bl537/locuszoom/bin/locuszoom'
+locuszoom_path = args[9]
+#locuszoom_path='/ysm-gpfs/pi/zhao/from_louise/bl537/locuszoom/bin/locuszoom'
 #### No Need to Change ####
 
 #mfolder = "/ysm-gpfs/pi/zhao/from_louise/bl537/GWAS/VA/ManhattanPlot"

@@ -12,6 +12,7 @@ This repository is a pipeline built for post-GWAS analysis. With GWAS summary st
 ### Clone the repo
 ```bash
 PIPELINE_PATH=/input the path you want to install pipeline here/
+#PIPELINE_PATH=/ysm-gpfs/pi/zhao/from_louise/yh367/pipeline_test
 cd ${PIPELINE_PATH}
 git clone https://github.com/yiminghu/post-GWAS-pipeline.git
 cd ${PIPELINE_PATH}/post-GWAS-pipeline
@@ -157,8 +158,8 @@ We also provide reformatting script for certain type of input (to be updated).
 ### 4. Generating task lists for all modules
 ```bash
 jobfolder=${grandfolder}/joblist/${TRAIT_NAME}/
-sumstats_path=
-sumstats_file=
+sumstats_path=/gpfs/ysm/pi/zhao/from_louise/bl537/GWAS/VA/Pipeline/Grand/example/
+sumstats_file=SumStats.txt
 sumstats=${sumstats_path}/${sumstats_file}
 mkdir ${jobfolder}
 ## Generate Standard GWAS / munge / LDSC task files ##
