@@ -141,7 +141,7 @@ mkdir ${grandfolder}/Standard/LocusZoom/
 mkdir ${grandfolder}/GNOVA/
 mkdir ${grandfolder}/UTMOST/
 ```
-**Note: REF_TABLE_PATH is a table contains paths to munged summary statistics of all reference GWAS (2,419 UKB + 210 publicly available GWAS). If any new reference GWAS are added in the future or any of the existing munged summary statistics are changed, please update this table accordingly!**
+**Note: REF_TABLE_PATH is a table contains paths to munged summary statistics of all reference GWAS (2,419 UKB + 210 publicly available GWAS). If any new reference GWAS are added in the future or any of the existing munged summary statistics are changed, please update this table accordingly**
 
 ### 3. Reformatting Sumstats / QC
 The pipeline assumes the following input format:
@@ -160,20 +160,20 @@ We also provide reformatting script for certain type of input (to be updated).
 ```bash
 TRAIT_NAME=test
 jobfolder=${grandfolder}/joblist/${TRAIT_NAME}/
-sumstats_path=/gpfs/ysm/pi/zhao/from_louise/bl537/GWAS/VA/Pipeline/Grand/example/
-sumstats_file=SumStats.txt
+sumstats_path=/gpfs/ysm/pi/zhao/from_louise/yh367/pipeline_test/
+sumstats_file=test.txt
 sumstats=${sumstats_path}/${sumstats_file}
 mkdir ${jobfolder}
 ## Generate Standard GWAS / munge / LDSC task files ##
 cd ${PIPELINE_PATH}/post-GWAS-pipeline/
 python2.7 standardGWAS_munge_ldsc.py --study ${TRAIT_NAME} --sumstats ${sumstats} --grandfolder ${grandfolder} --ldsc_path ${LDSC_PATH} --locuszoom_path ${LOCUSZOOM_PATH}
 echo "Following task files generated in ${jobfolder}:"
-echo "Manhattan/QQ/LocusZoom tasks written to standardGWAS_${TRAIT_NAME}!"
-echo "LDSC munge summary stats task written to munge_${TRAIT_NAME}!"
-echo "Annotation enrichment analysis tasks written to annotation_enrichment_${TRAIT_NAME}_Tier1!"
-echo "Annotation enrichment analysis tasks written to annotation_enrichment_${TRAIT_NAME}_Tier2!"
-echo "Annotation enrichment analysis tasks written to annotation_enrichment_${TRAIT_NAME}_Tier3!"
-echo "Heritability estimation task written to ldsc_${TRAIT_NAME}_Heritability!"
+echo "Manhattan/QQ/LocusZoom tasks written to standardGWAS_${TRAIT_NAME}"
+echo "LDSC munge summary stats task written to munge_${TRAIT_NAME}"
+echo "Annotation enrichment analysis tasks written to annotation_enrichment_${TRAIT_NAME}_Tier1"
+echo "Annotation enrichment analysis tasks written to annotation_enrichment_${TRAIT_NAME}_Tier2"
+echo "Annotation enrichment analysis tasks written to annotation_enrichment_${TRAIT_NAME}_Tier3"
+echo "Heritability estimation task written to ldsc_${TRAIT_NAME}_Heritability"
 
 ## Generate GNOVA task files ##
 gnova_output_path=${grandfolder}/GNOVA/${TRAIT_NAME}/
@@ -183,7 +183,7 @@ sumstats=${grandfolder}/LDSC/sumstats/${TRAIT_NAME}.sumstats.gz
 task_file=${jobfolder}/gnova_ns.task
 Rscript --vanilla gc_gnova_cmd.R ${gnova_output_path} ${gnova_output_prefix} ${sumstats} ${GNOVA_PATH} ${task_file} ${REF_TABLE_PATH} ${REF_GENOME_PATH}
 echo "Following task files generated in ${jobfolder}:"
-echo "GNOVA non-stratified analysis tasks written to gnova_ns.task!"
+echo "GNOVA non-stratified analysis tasks written to gnova_ns.task"
 
 ## Generate UTMOST task files ##
 TISSUE_LIST=(Adipose_Subcutaneous Adipose_Visceral_Omentum Adrenal_Gland Artery_Aorta Artery_Coronary Artery_Tibial Brain_Anterior_cingulate_cortex_BA24 Brain_Caudate_basal_ganglia Brain_Cerebellar_Hemisphere Brain_Cerebellum Brain_Cortex Brain_Frontal_Cortex_BA9 Brain_Hippocampus Brain_Hypothalamus Brain_Nucleus_accumbens_basal_ganglia Brain_Putamen_basal_ganglia Breast_Mammary_Tissue Cells_EBV-transformed_lymphocytes Cells_Transformed_fibroblasts Colon_Sigmoid Colon_Transverse Esophagus_Gastroesophageal_Junction Esophagus_Mucosa Esophagus_Muscularis Heart_Atrial_Appendage Heart_Left_Ventricle Liver Lung Muscle_Skeletal Nerve_Tibial Ovary Pancreas Pituitary Prostate Skin_Not_Sun_Exposed_Suprapubic Skin_Sun_Exposed_Lower_leg Small_Intestine_Terminal_Ileum Spleen Stomach Testis Thyroid Uterus Vagina Whole_Blood) 
@@ -215,8 +215,8 @@ task_joint="python2 ${UTMOST_PATH}/joint_GBJ_test.py --weight_db ${WEIGHT_DB_PAT
 echo $task_joint >> ${utmost_joint_task_file}
 
 echo "Following task files generated in ${jobfolder}:"
-echo "UTMOST SINGLE-TISSUE tasks written to ${utmost_single_tissue_task_file}!"
-echo "UTMOSTJOINT TEST tasks written to ${utmost_joint_task_file}!"
+echo "UTMOST SINGLE-TISSUE tasks written to ${utmost_single_tissue_task_file}"
+echo "UTMOSTJOINT TEST tasks written to ${utmost_joint_task_file}"
 ```
 
 Generated task files can either be executed directly or distributed to different user.

@@ -27,7 +27,7 @@ qdir = paste0(qfolder, "/", aname, ".png")
 a = as.data.frame(fread(adir, header=T, sep='auto'))
 colnames(a)
 
-b = a[, c("CHROM", "POS", "PVALUE")]
+b = a[, c("CHROM", "POS", "P")]
 colnames(b) = c("CHR", "BP", "P")
 b = b[order(b$CHR, b$BP),]
 
@@ -70,7 +70,7 @@ flag = function(dd){
 oodir = paste0(sfolder, "/", aname, ".txt")
 lodir = paste0(jfolder, "/step1b_", aname)
 
-d = a[a$PVALUE<5e-8, c('CHROM', 'POS', 'PVALUE', 'SNP')]
+d = a[a$PVALUE<5e-8, c('CHROM', 'POS', 'P', 'SNP')]
 colnames(d) = c('CHR', 'BP', 'P', 'SNP')
 d = d[order(d$CHR, d$BP),]
 
@@ -87,7 +87,7 @@ if (nrow(d)>=1){
     for (j in 1:max(o$Flag)) {
       oo = o[o$Flag==j, ]
       line = oo[oo$P==min(oo$P),]
-      ll = paste0('module load R; ', locuszoom_path, ' --metal ', adir, ' --refsnp "',line$SNP,'" --chr ',line$CHR,' --flank 500kb --markercol SNP --pvalcol PVALUE --plotonly --prefix ', lfolder,'/zoom --pop ', population, ' --build hg19 --source 1000G_March2012')
+      ll = paste0('module load R; ', locuszoom_path, ' --metal ', adir, ' --refsnp "',line$SNP,'" --chr ',line$CHR,' --flank 500kb --markercol SNP --pvalcol P --plotonly --prefix ', lfolder,'/zoom --pop ', population, ' --build hg19 --source 1000G_March2012')
       print(line)
       if (max(i,j)==1){
         write.table(line[, c(1:4)], file=oodir, quote = F, sep ="\t", row.names = F, col.names = T)
