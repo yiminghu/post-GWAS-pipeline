@@ -38,7 +38,7 @@ More info can be found on https://github.com/bulik/ldsc.
 ```bash
 cd ${PIPELINE_PATH}/post-GWAS-pipeline
 ## install and setup python dependency
-git clone git@github.com:bulik/ldsc.git
+git clone https://github.com/bulik/ldsc.git
 cd ./ldsc
 conda env create --file environment.yml
 source activate ldsc
@@ -52,7 +52,7 @@ mkdir Input/EUR/weights
 cd Input/EUR
 wget https://data.broadinstitute.org/alkesgroup/LDSCORE/eur_w_ld_chr.tar.bz2
 tar -jxvf eur_w_ld_chr.tar.bz2
-cd ../genotype
+cd genotype
 wget https://data.broadinstitute.org/alkesgroup/LDSCORE/1000G_Phase1_frq.tgz
 tar xvzf 1000G_Phase1_frq.tgz
 cd ../weights
@@ -70,6 +70,7 @@ mkdir Annotations/EUR/GenoSkyline_Plus
 ## download baseline annotations
 cd Annotations/EUR/Baseline
 wget https://data.broadinstitute.org/alkesgroup/LDSCORE/1000G_Phase1_baseline_ldscores.tgz
+tar xvzf 1000G_Phase1_baseline_ldscores.tgz
 ## download GenoSkyline_Plus annotations
 cd ../GenoSkyline_Plus
 wget http://genocanyon.med.yale.edu/GenoSkylineFiles/GenoSkylinePlus/LD_score_files_1KGphase3.tar.gz
