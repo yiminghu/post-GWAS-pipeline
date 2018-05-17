@@ -81,7 +81,7 @@ tar xvzf LD_score_files_1KGphase3.tar.gz
 More usage instructions can be found at https://github.com/xtonyjiang/GNOVA.
 ```bash
 cd ${PIPELINE_PATH}/post-GWAS-pipeline/ ## return to post-GWAS-pipeline/
-git clone git@github.com:xtonyjiang/GNOVA.git
+git clone https://github.com/xtonyjiang/GNOVA.git
 ## install python dependency if needed
 pip install numpy --user
 pip install scipy --user
