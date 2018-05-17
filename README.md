@@ -222,5 +222,12 @@ Generated task files can either be executed directly or distributed to different
 We also provide helper scripts for generating presentable results from GNOVA and UTMOST outputs.
 
 ```bash
+## generate GNOVA summary table (as shown in the workflow figure) ##
+summary_table_prefix=${grandfolder}/GNOVA/Summary_
+Rscript --vanilla extract_gc_gnova_results.R ${gnova_output_path} ${summary_table_prefix} ${gnova_output_prefix} ${REF_TABLE_PATH}
+
+## generate UTMOST gene-level Manhattan plot/qq plot/significant gene table ##
+utmost_results="${utmost_joint}/${utmost_joint_prefix}_1_17290.txt"
+Rscript --vanilla extract_utmost_results.R ${utmost_results} ${utmost_joint} ${TRAIT_NAME} GeneList.txt
 
 ```
