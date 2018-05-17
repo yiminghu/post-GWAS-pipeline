@@ -124,6 +124,20 @@ LDSC_PATH=${PIPELINE_PATH}/post-GWAS-pipeline/ldsc/
 GNOVA_PATH=${PIPELINE_PATH}/post-GWAS-pipeline/gnova/
 UTMOST_PATH=${PIPELINE_PATH}/post-GWAS-pipeline/UTMOST/
 REF_TABLE_PATH=/gpfs/ysm/pi/zhao/from_louise/yh367/VA/workflow/GNOVA/sumstats/match_table_full.csv
+REF_GENOME_PATH=${GNOVA_PATH}/genotype_1KG_eur_SNPmaf5/
+grandfolder=${PIPELINE_PATH}/post-GWAS-pipeline/grandfolder/
+mkdir ${grandfolder}
+mkdir ${grandfolder}/joblist/
+mkdir ${grandfolder}/LDSC/
+mkdir ${grandfolder}/LDSC/sumstats/
+mkdir ${grandfolder}/LDSC/Results/
+mkdir ${grandfolder}/Standard/
+mkdir ${grandfolder}/Standard/ManhattanPlot/
+mkdir ${grandfolder}/Standard/qqPlot/
+mkdir ${grandfolder}/Standard/Significant/
+mkdir ${grandfolder}/Standard/LocusZoom/
+mkdir ${grandfolder}/GNOVA/
+mkdir ${grandfolder}/UTMOST/
 ```
 **Note: REF_TABLE_PATH is a table contains paths to munged summary statistics of all reference GWAS (2,419 UKB + 210 publicly available GWAS). If any new reference GWAS are added in the future or any of the existing munged summary statistics are changed, please update this table accordingly!**
 
@@ -138,9 +152,29 @@ The pipeline assumes the following input format:
 |1      |753405 |C      |A      |-0.0495965|0.0420519| rs3115860| 137044|
 |1      |753425 |T      |C      |-0.0495346|0.0418289| rs3131970| 137044|
 
-We also provide reformatting script for certain type of input (to be continued).
+We also provide reformatting script for certain type of input (to be updated).
 
 ### 4. Generating task lists for all modules
-
+```bash
+jobfolder=${grandfolder}/joblist/${TRAIT_NAME}/
+mkdir ${jobfolder}
+## Generate Standard GWAS / munge / LDSC task files ##
+cd ${PIPELINE_PATH}/post-GWAS-pipeline/
+python2.7 standardGWAS_munge_ldsc.py --study ${TRAIT_NAME} --sumstats ${sumstats} --grandfolder grandfolder --ldsc_path ${LDSC_PATH} --locuszoom_path ${LOCUSZOOM_PATH}
+### generates the following files in jobfolder:
+### standardGWAS_${TRAIT_NAME}
+### munge_${TRAIT_NAME}
+### standardGWAS_${TRAIT_NAME}
+### standardGWAS_${TRAIT_NAME}
+## Generate GNOVA task files ##
+GNOVA_results=${grandfolder}/GNOVA_results/
+mkdir ${GNOVA_results}
+gnova_output_path=${GNOVA_results}/${TRAIT_NAME}/
+mkdir ${gnova_output_path}
+gnova_output_prefix=${TRAIT_NAME} #2 prefix of output files
+sumstats=${grandfolder}/LDSC/sumstats/${TRAIT_NAME}.sumstats.gz
+task_file=${jobfolder}/gnova_ns.task
+Rscript --vanilla gc_gnova_cmd.R ${grandfolder} ${gnova_output_prefix} ${sumstats} ${GNOVA_PATH} ${task_file} ${REF_TABLE_PATH} ${REF_GENOME_PATH}
+```
 ### 5. Generating summary for GNOVA and UTMOST
 
