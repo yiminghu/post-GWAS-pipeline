@@ -216,5 +216,11 @@ echo "UTMOST SINGLE-TISSUE tasks written to ${utmost_single_tissue_task_file}!"
 echo "UTMOSTJOINT TEST tasks written to ${utmost_joint_task_file}!"
 ```
 
-### 5. Generating summary for GNOVA and UTMOST
+Generated task files can either be executed directly or distributed to different user.
 
+### 5. Generating summary for GNOVA and UTMOST
+We also provide helper scripts for generating presentable results from GNOVA and UTMOST outputs.
+
+```bash
+
+```
