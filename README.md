@@ -157,26 +157,64 @@ We also provide reformatting script for certain type of input (to be updated).
 ### 4. Generating task lists for all modules
 ```bash
 jobfolder=${grandfolder}/joblist/${TRAIT_NAME}/
+sumstats_path=
+sumstats_file=
+sumstats=${sumstats_path}/${sumstats_file}
 mkdir ${jobfolder}
 ## Generate Standard GWAS / munge / LDSC task files ##
 cd ${PIPELINE_PATH}/post-GWAS-pipeline/
 python2.7 standardGWAS_munge_ldsc.py --study ${TRAIT_NAME} --sumstats ${sumstats} --grandfolder grandfolder --ldsc_path ${LDSC_PATH} --locuszoom_path ${LOCUSZOOM_PATH}
-### generates the following files in jobfolder:
-### "standardGWAS_${TRAIT_NAME}"
-### "munge_${TRAIT_NAME}"
-### "annotation_enrichment_${TRAIT_NAME}_Tier1"
-### "annotation_enrichment_${TRAIT_NAME}_Tier2"
-### "annotation_enrichment_${TRAIT_NAME}_Tier3"
-### "ldsc_${TRAIT_NAME}_Heritability"
+echo "Following task files generated in ${jobfolder}:"
+echo "Manhattan/QQ/LocusZoom tasks written to standardGWAS_${TRAIT_NAME}!"
+echo "LDSC munge summary stats task written to munge_${TRAIT_NAME}!"
+echo "Annotation enrichment analysis tasks written to annotation_enrichment_${TRAIT_NAME}_Tier1!"
+echo "Annotation enrichment analysis tasks written to annotation_enrichment_${TRAIT_NAME}_Tier2!"
+echo "Annotation enrichment analysis tasks written to annotation_enrichment_${TRAIT_NAME}_Tier3!"
+echo "Heritability estimation task written to ldsc_${TRAIT_NAME}_Heritability!"
+
 ## Generate GNOVA task files ##
-GNOVA_results=${grandfolder}/GNOVA_results/
-mkdir ${GNOVA_results}
-gnova_output_path=${GNOVA_results}/${TRAIT_NAME}/
+gnova_output_path=${grandfolder}/GNOVA/${TRAIT_NAME}/
 mkdir ${gnova_output_path}
 gnova_output_prefix=${TRAIT_NAME} #2 prefix of output files
 sumstats=${grandfolder}/LDSC/sumstats/${TRAIT_NAME}.sumstats.gz
 task_file=${jobfolder}/gnova_ns.task
-Rscript --vanilla gc_gnova_cmd.R ${grandfolder} ${gnova_output_prefix} ${sumstats} ${GNOVA_PATH} ${task_file} ${REF_TABLE_PATH} ${REF_GENOME_PATH}
+Rscript --vanilla gc_gnova_cmd.R ${gnova_output_path} ${gnova_output_prefix} ${sumstats} ${GNOVA_PATH} ${task_file} ${REF_TABLE_PATH} ${REF_GENOME_PATH}
+echo "Following task files generated in ${jobfolder}:"
+echo "GNOVA non-stratified analysis tasks written to gnova_ns.task!"
+
+## Generate UTMOST task files ##
+TISSUE_LIST=(Adipose_Subcutaneous Adipose_Visceral_Omentum Adrenal_Gland Artery_Aorta Artery_Coronary Artery_Tibial Brain_Anterior_cingulate_cortex_BA24 Brain_Caudate_basal_ganglia Brain_Cerebellar_Hemisphere Brain_Cerebellum Brain_Cortex Brain_Frontal_Cortex_BA9 Brain_Hippocampus Brain_Hypothalamus Brain_Nucleus_accumbens_basal_ganglia Brain_Putamen_basal_ganglia Breast_Mammary_Tissue Cells_EBV-transformed_lymphocytes Cells_Transformed_fibroblasts Colon_Sigmoid Colon_Transverse Esophagus_Gastroesophageal_Junction Esophagus_Mucosa Esophagus_Muscularis Heart_Atrial_Appendage Heart_Left_Ventricle Liver Lung Muscle_Skeletal Nerve_Tibial Ovary Pancreas Pituitary Prostate Skin_Not_Sun_Exposed_Suprapubic Skin_Sun_Exposed_Lower_leg Small_Intestine_Terminal_Ileum Spleen Stomach Testis Thyroid Uterus Vagina Whole_Blood) 
+WEIGHT_DB_PATH=${UTMOST_PATH}/sample_data/weight_db_GTEx/
+SINGLE_TISSUE_COV_PATH=${UTMOST_PATH}/sample_data/covariance_tissue/
+JOINT_TISSUE_COV_PATH=${UTMOST_PATH}/sample_data/covariance_joint/
+GENE_INFO=${UTMOST_PATH}/intermediate/gene_info.txt
+
+utmost_results=${grandfolder}/UTMOST/${TRAIT_NAME}/
+mkdir ${utmost_results}
+utmost_single="${utmost_results}/single/"
+utmost_joint="${utmost_results}/joint/"
+mkdir ${utmost_single}
+mkdir ${utmost_joint}
+utmost_joint_prefix=${TRAIT_NAME}
+
+'''
+TASK FILES SETTINGS (for parallell running purpose)
+'''
+utmost_single_task_file=${jobfolder}/utmost_single_tissue.task
+utmost_joint_task_file=${jobfolder}/utmost_joint_test.task
+
+for tissue in ${TISSUE_LIST[@]}
+do
+task_single_tissue="python2 ${UTMOST_PATH}/single_tissue_association_test.py --model_db_path ${WEIGHT_DB_PATH}/${tissue}.db --covariance ${SINGLE_TISSUE_COV_PATH}/${tissue}.txt.gz --gwas_folder ${sumstats_path} --gwas_file_pattern ${sumstats_file} --snp_column SNP --effect_allele_column A1 --non_effect_allele_column A2 --beta_column BETA --pvalue_column P --output_file ${utmost_single}/${tissue}.csv"
+echo $task_single_tissue >> ${utmost_single_tissue_task_file}
+done
+task_joint="python2 ${UTMOST_PATH}/joint_GBJ_test.py --weight_db ${WEIGHT_DB_PATH} --output_dir ${utmost_joint} --cov_dir ${JOINT_TISSUE_COV_PATH} --input_folder ${utmost_single} --gene_info ${GENE_INFO} --output_name ${utmost_joint_prefix} --start_gene_index 1 --end_gene_index 17290"
+echo $task_joint >> ${utmost_joint_task_file}
+
+echo "Following task files generated in ${jobfolder}:"
+echo "UTMOST SINGLE-TISSUE tasks written to ${utmost_single_tissue_task_file}!"
+echo "UTMOSTJOINT TEST tasks written to ${utmost_joint_task_file}!"
 ```
+
 ### 5. Generating summary for GNOVA and UTMOST
 
