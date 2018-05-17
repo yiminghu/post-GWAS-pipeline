@@ -158,6 +158,7 @@ We also provide reformatting script for certain type of input (to be updated).
 
 ### 4. Generating task lists for all modules
 ```bash
+TRAIT_NAME=test
 jobfolder=${grandfolder}/joblist/${TRAIT_NAME}/
 sumstats_path=/gpfs/ysm/pi/zhao/from_louise/bl537/GWAS/VA/Pipeline/Grand/example/
 sumstats_file=SumStats.txt
@@ -165,7 +166,7 @@ sumstats=${sumstats_path}/${sumstats_file}
 mkdir ${jobfolder}
 ## Generate Standard GWAS / munge / LDSC task files ##
 cd ${PIPELINE_PATH}/post-GWAS-pipeline/
-python2.7 standardGWAS_munge_ldsc.py --study ${TRAIT_NAME} --sumstats ${sumstats} --grandfolder grandfolder --ldsc_path ${LDSC_PATH} --locuszoom_path ${LOCUSZOOM_PATH}
+python2.7 standardGWAS_munge_ldsc.py --study ${TRAIT_NAME} --sumstats ${sumstats} --grandfolder ${grandfolder} --ldsc_path ${LDSC_PATH} --locuszoom_path ${LOCUSZOOM_PATH}
 echo "Following task files generated in ${jobfolder}:"
 echo "Manhattan/QQ/LocusZoom tasks written to standardGWAS_${TRAIT_NAME}!"
 echo "LDSC munge summary stats task written to munge_${TRAIT_NAME}!"

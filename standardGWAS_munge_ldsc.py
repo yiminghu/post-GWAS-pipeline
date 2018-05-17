@@ -46,7 +46,7 @@ if not os.path.exists(args.grandfolder+'/Standard/LocusZoom'):
 Study                        = args.study
 SumStats_file                = args.sumstats
 ldsc_path                    = args.ldsc_path
-locuszoom_path               = args
+locuszoom_path               = args.locuszoom_path
 jobfolder                    = args.grandfolder+'/joblist/'+Study
 LDSC_SumStats_folder         = args.grandfolder+'/LDSC/sumstats/'+Study
 LDSC_Results_folder          = args.grandfolder+'/LDSC/Results/'+Study
