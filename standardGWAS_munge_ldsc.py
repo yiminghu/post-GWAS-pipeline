@@ -83,7 +83,7 @@ if not os.path.exists(LocusZoom_folder):
 #### Step 1. Manhattan and QQ Plots ####
 outdir = jobfolder+"/standardGWAS_"+Study
 outfile=open(outdir,'w')
-a = "source ~/.bashrc; module load R; aname="+Study+"; SumStats_file="+SumStats_file+"; mfolder="+ManhattanPlot_folder+"; qfolder="+qqPlot_folder+"; sfolder="+sig_folder+"; lfolder="+LocusZoom_folder+"; jfolder="+jobfolder+"; Population="+Population+"; Locuszoom_path="+locuszoom_path+"; Rscript --vanilla /gpfs/ysm/pi/zhao/from_louise/bl537/GWAS/VA/Pipeline/Script/Manhattan_QQ_Significant.R ${aname} ${SumStats_file} ${mfolder} ${qfolder} ${sfolder} ${lfolder} ${jfolder} ${Population} ${Locuszoom_path};"
+a = "source ~/.bashrc; module load R; aname="+Study+"; SumStats_file="+SumStats_file+"; mfolder="+ManhattanPlot_folder+"; qfolder="+qqPlot_folder+"; sfolder="+sig_folder+"; lfolder="+LocusZoom_folder+"; jfolder="+jobfolder+"; Population="+Population+"; Locuszoom_path="+locuszoom_path+"; Rscript --vanilla Manhattan_QQ_Significant.R ${aname} ${SumStats_file} ${mfolder} ${qfolder} ${sfolder} ${lfolder} ${jfolder} ${Population} ${Locuszoom_path};"
 outfile.write(a+'\n')
 outfile.close()
 print 'Standard GWAS module task file written to '+outdir
