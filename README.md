@@ -162,10 +162,12 @@ mkdir ${jobfolder}
 cd ${PIPELINE_PATH}/post-GWAS-pipeline/
 python2.7 standardGWAS_munge_ldsc.py --study ${TRAIT_NAME} --sumstats ${sumstats} --grandfolder grandfolder --ldsc_path ${LDSC_PATH} --locuszoom_path ${LOCUSZOOM_PATH}
 ### generates the following files in jobfolder:
-### standardGWAS_${TRAIT_NAME}
-### munge_${TRAIT_NAME}
-### standardGWAS_${TRAIT_NAME}
-### standardGWAS_${TRAIT_NAME}
+### "standardGWAS_${TRAIT_NAME}"
+### "munge_${TRAIT_NAME}"
+### "annotation_enrichment_${TRAIT_NAME}_Tier1"
+### "annotation_enrichment_${TRAIT_NAME}_Tier2"
+### "annotation_enrichment_${TRAIT_NAME}_Tier3"
+### "ldsc_${TRAIT_NAME}_Heritability"
 ## Generate GNOVA task files ##
 GNOVA_results=${grandfolder}/GNOVA_results/
 mkdir ${GNOVA_results}
