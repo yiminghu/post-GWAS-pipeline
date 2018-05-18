@@ -135,7 +135,7 @@ unzip covariance_joint.zip
 ```bash
 LOCUSZOOM_PATH=${PIPELINE_PATH}/post-GWAS-pipeline/locuszoom/bin/locuszoom
 LDSC_PATH=${PIPELINE_PATH}/post-GWAS-pipeline/ldsc/
-GNOVA_PATH=${PIPELINE_PATH}/post-GWAS-pipeline/gnova/
+GNOVA_PATH=${PIPELINE_PATH}/post-GWAS-pipeline/GNOVA/
 UTMOST_PATH=${PIPELINE_PATH}/post-GWAS-pipeline/UTMOST/
 REF_TABLE_PATH=/gpfs/ysm/pi/zhao/from_louise/yh367/VA/workflow/GNOVA/sumstats/match_table_full.csv
 REF_GENOME_PATH=${GNOVA_PATH}/genotype_1KG_eur_SNPmaf5/
@@ -190,7 +190,7 @@ echo "Heritability estimation task written to ldsc_${TRAIT_NAME}_Heritability"
 ## Generate GNOVA task files ##
 gnova_output_path=${grandfolder}/GNOVA/${TRAIT_NAME}/
 mkdir ${gnova_output_path}
-gnova_output_prefix=${TRAIT_NAME} #2 prefix of output files
+gnova_output_prefix=${TRAIT_NAME} #prefix of output files
 sumstats=${grandfolder}/LDSC/sumstats/${TRAIT_NAME}.sumstats.gz
 task_file=${jobfolder}/gnova_ns.task
 Rscript --vanilla gc_gnova_cmd.R ${gnova_output_path} ${gnova_output_prefix} ${sumstats} ${GNOVA_PATH} ${task_file} ${REF_TABLE_PATH} ${REF_GENOME_PATH}
@@ -212,22 +212,19 @@ mkdir ${utmost_single}
 mkdir ${utmost_joint}
 utmost_joint_prefix=${TRAIT_NAME}
 
-'''
-TASK FILES SETTINGS (for parallell running purpose)
-'''
 utmost_single_task_file=${jobfolder}/utmost_single_tissue.task
 utmost_joint_task_file=${jobfolder}/utmost_joint_test.task
 
 for tissue in ${TISSUE_LIST[@]}
 do
 task_single_tissue="python2 ${UTMOST_PATH}/single_tissue_association_test.py --model_db_path ${WEIGHT_DB_PATH}/${tissue}.db --covariance ${SINGLE_TISSUE_COV_PATH}/${tissue}.txt.gz --gwas_folder ${sumstats_path} --gwas_file_pattern ${sumstats_file} --snp_column SNP --effect_allele_column A1 --non_effect_allele_column A2 --beta_column BETA --pvalue_column P --output_file ${utmost_single}/${tissue}.csv"
-echo $task_single_tissue >> ${utmost_single_tissue_task_file}
+echo $task_single_tissue >> ${utmost_single_task_file}
 done
 task_joint="python2 ${UTMOST_PATH}/joint_GBJ_test.py --weight_db ${WEIGHT_DB_PATH} --output_dir ${utmost_joint} --cov_dir ${JOINT_TISSUE_COV_PATH} --input_folder ${utmost_single} --gene_info ${GENE_INFO} --output_name ${utmost_joint_prefix} --start_gene_index 1 --end_gene_index 17290"
 echo $task_joint >> ${utmost_joint_task_file}
 
 echo "Following task files generated in ${jobfolder}:"
-echo "UTMOST SINGLE-TISSUE tasks written to ${utmost_single_tissue_task_file}"
+echo "UTMOST SINGLE-TISSUE tasks written to ${utmost_single_task_file}"
 echo "UTMOSTJOINT TEST tasks written to ${utmost_joint_task_file}"
 ```
 
