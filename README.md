@@ -44,6 +44,7 @@ conda env create --file environment.yml
 source activate ldsc
 ```
 Download ld scores
+
 **Note: the reference data downloaded must be version-matched, e.g. the .frq/weights/baseline/GenoSkyline_Plus must all be Phase1 or Phase3!**
 ```bash
 mkdir Input
