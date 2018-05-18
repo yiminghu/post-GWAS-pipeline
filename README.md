@@ -144,7 +144,7 @@ mkdir ${grandfolder}/UTMOST/
 **Note: REF_TABLE_PATH is a table contains paths to munged summary statistics of all reference GWAS (2,419 UKB + 210 publicly available GWAS). If any new reference GWAS are added in the future or any of the existing munged summary statistics are changed, please update this table accordingly**
 
 ### 3. Reformatting Sumstats / QC
-The pipeline assumes the following input format:
+The pipeline assumes the following input format (tab-deliminated):
 
 |CHROM  |POS    |A1     |A2     |BETA      |P        | SNP      |N      |
 |:-----:|:-----:|:-----:|:-----:| :-----:| :-----:| :-----:| :-----:|

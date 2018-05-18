@@ -98,9 +98,9 @@ outfile.close()
 Tier = "Tier1"
 outdir = jobfolder+"/annotation_enrichment_"+Study+"_"+Tier
 outfile = open(outdir,'w')
-BaselineDIR = "/ysm-gpfs/pi/zhao/from_louise/ql68/Software/ldsc/Annotations/EUR/Baseline/baseline"
-AnnotDIR    = "/ysm-gpfs/pi/zhao/from_louise/ql68/Software/ldsc/Annotations/EUR/GenoSkyline_Plus"
-InputDIR    = "/ysm-gpfs/pi/zhao/from_louise/ql68/Software/ldsc/Input"
+#BaselineDIR = "/ysm-gpfs/pi/zhao/from_louise/ql68/Software/ldsc/Annotations/EUR/Baseline/baseline"
+#AnnotDIR    = "/ysm-gpfs/pi/zhao/from_louise/ql68/Software/ldsc/Annotations/EUR/GenoSkyline_Plus"
+#InputDIR    = "/ysm-gpfs/pi/zhao/from_louise/ql68/Software/ldsc/Input"
 a = "source ~/.bashrc; Tier="+Tier+"; outfolder="+LDSC_Results_folder+"/${Tier}; aname="+Study+"; sumstatsDIR="+LDSC_SumStats_folder+"; BaselineDIR="+BaselineDIR+"; AnnotDIR="+AnnotDIR+"; InputDIR="+InputDIR+"; cd "+ldsc_path+"; python2.7 ldsc.py --h2 ${sumstatsDIR}/${aname}.sumstats.gz --ref-ld-chr ${BaselineDIR}.,${AnnotDIR}/GSplus_${Tier}. --w-ld-chr ${InputDIR}/EUR/weights/weights. --frqfile-chr ${InputDIR}/EUR/genotype/1000G.mac5eur. --overlap-annot --print-coefficients --out ${outfolder}/${aname};"
 outfile.write(a+'\n')
 outfile.close()
