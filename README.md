@@ -44,6 +44,7 @@ conda env create --file environment.yml
 source activate ldsc
 ```
 Download ld scores
+**Note: the reference data downloaded must be version-matched, e.g. the .frq/weights/baseline/GenoSkyline_Plus must all be Phase1 or Phase3!**
 ```bash
 mkdir Input
 mkdir Input/EUR
@@ -53,11 +54,17 @@ cd Input/EUR
 wget https://data.broadinstitute.org/alkesgroup/LDSCORE/eur_w_ld_chr.tar.bz2
 tar -jxvf eur_w_ld_chr.tar.bz2
 cd genotype
-wget https://data.broadinstitute.org/alkesgroup/LDSCORE/1000G_Phase1_frq.tgz
-tar xvzf 1000G_Phase1_frq.tgz
+wget https://data.broadinstitute.org/alkesgroup/LDSCORE/1000G_Phase3_frq.tgz
+tar xvzf 1000G_Phase3_frq.tgz
 cd ../weights
-wget https://data.broadinstitute.org/alkesgroup/LDSCORE/weights_hm3_no_hla.tgz
-tar xvzf weights_hm3_no_hla.tgz
+wget https://data.broadinstitute.org/alkesgroup/LDSCORE/1000G_Phase3_weights_hm3_no_MHC.tgz
+tar xvzf 1000G_Phase3_weights_hm3_no_MHC.tgz
+
+
+#wget https://data.broadinstitute.org/alkesgroup/LDSCORE/1000G_Phase1_frq.tgz
+#tar xvzf 1000G_Phase1_frq.tgz
+#wget https://data.broadinstitute.org/alkesgroup/LDSCORE/weights_hm3_no_hla.tgz
+#tar xvzf weights_hm3_no_hla.tgz
 ```
 
 Download annotations
@@ -65,13 +72,21 @@ Download annotations
 cd ${PIPELINE_PATH}/post-GWAS-pipeline/ldsc ## return to ldsc/
 mkdir Annotations
 mkdir Annotations/EUR
+mkdir Annotations/EUR/Baseline
+mkdir Annotations/EUR/GenoSkyline_Plus
 ## download baseline annotations
-cd Annotations/EUR/
-wget https://data.broadinstitute.org/alkesgroup/LDSCORE/1000G_Phase1_baseline_ldscores.tgz
-tar xvzf 1000G_Phase1_baseline_ldscores.tgz
+cd Annotations/EUR/Baseline
+wget https://data.broadinstitute.org/alkesgroup/LDSCORE/1000G_Phase3_baseline_ldscores.tgz
+tar xvzf 1000G_Phase3_baseline_ldscores.tgz
 ## download GenoSkyline_Plus annotations
+cd ../GenoSkyline_Plus
 wget http://genocanyon.med.yale.edu/GenoSkylineFiles/GenoSkylinePlus/LD_score_files_1KGphase3.tar.gz
 tar xvzf LD_score_files_1KGphase3.tar.gz
+
+#wget https://data.broadinstitute.org/alkesgroup/LDSCORE/1000G_Phase1_baseline_ldscores.tgz
+#tar xvzf 1000G_Phase1_baseline_ldscores.tgz
+#wget http://genocanyon.med.yale.edu/GenoSkylineFiles/GenoSkylinePlus/LD_score_files_1KGphase1.tar.gz
+#tar xvzf LD_score_files_1KGphase1.tar.gz
 ```
 
 #### 1.4 GNOVA
