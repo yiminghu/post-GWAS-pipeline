@@ -233,7 +233,7 @@ Generated task files can either be executed directly or distributed to different
 
 **Note: standardGWAS_${TRAIT_NAME} will generate a new task file named locuszoom_${TRAIT_NAME} in ${jobfolder} and munge_${TRAIT_NAME} needs to be executed before LDSC and GNOVA.**
 
-### 5. Generating summary for GNOVA and UTMOST
+### 5. Generating summary tables/figures for GNOVA and UTMOST
 We also provide helper scripts for generating presentable results from GNOVA and UTMOST outputs.
 
 ```bash
