@@ -229,7 +229,9 @@ echo "UTMOST SINGLE-TISSUE tasks written to ${utmost_single_task_file}"
 echo "UTMOSTJOINT TEST tasks written to ${utmost_joint_task_file}"
 ```
 
-Generated task files can either be executed directly or distributed to different user but **note: standardGWAS_${TRAIT_NAME} will generate a new task file named locuszoom_${TRAIT_NAME} in ${jobfolder} and munge_${TRAIT_NAME} needs to be executed before LDSC and GNOVA. **
+Generated task files can either be executed directly or distributed to different user. 
+
+**Note: standardGWAS_${TRAIT_NAME} will generate a new task file named locuszoom_${TRAIT_NAME} in ${jobfolder} and munge_${TRAIT_NAME} needs to be executed before LDSC and GNOVA.**
 
 ### 5. Generating summary for GNOVA and UTMOST
 We also provide helper scripts for generating presentable results from GNOVA and UTMOST outputs.
