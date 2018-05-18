@@ -68,9 +68,9 @@ flag = function(dd){
 }
 
 oodir = paste0(sfolder, "/", aname, ".txt")
-lodir = paste0(jfolder, "/step1b_", aname)
+lodir = paste0(jfolder, "/locuszoom_", aname)
 
-d = a[a$PVALUE<5e-8, c('CHROM', 'POS', 'P', 'SNP')]
+d = a[a$P<5e-8, c('CHROM', 'POS', 'P', 'SNP')]
 colnames(d) = c('CHR', 'BP', 'P', 'SNP')
 d = d[order(d$CHR, d$BP),]
 
@@ -100,8 +100,8 @@ if (nrow(d)>=1){
     }
   }
 }else{
-  write.table('No PVALUE<5e-8!', file=oodir, quote = F, sep ="\t", row.names = F, col.names = F)
-  write.table('No PVALUE<5e-8!', file=lodir, quote = F, append = T, row.names = F, col.names = F)
+  write.table('No P<5e-8!', file=oodir, quote = F, sep ="\t", row.names = F, col.names = F)
+  write.table('No P<5e-8!', file=lodir, quote = F, append = T, row.names = F, col.names = F)
 }
 
 
