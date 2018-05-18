@@ -65,10 +65,10 @@ Download annotations
 cd ${PIPELINE_PATH}/post-GWAS-pipeline/ldsc ## return to ldsc/
 mkdir Annotations
 mkdir Annotations/EUR
-mkdir Annotations/EUR/Baseline
+#mkdir Annotations/EUR/Baseline
 mkdir Annotations/EUR/GenoSkyline_Plus
 ## download baseline annotations
-cd Annotations/EUR/Baseline
+cd Annotations/EUR/
 wget https://data.broadinstitute.org/alkesgroup/LDSCORE/1000G_Phase1_baseline_ldscores.tgz
 tar xvzf 1000G_Phase1_baseline_ldscores.tgz
 ## download GenoSkyline_Plus annotations

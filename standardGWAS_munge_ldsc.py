@@ -55,7 +55,7 @@ qqPlot_folder                = args.grandfolder+'/Standard/qqPlot/'+Study
 sig_folder                   = args.grandfolder+'/Standard/Significant/'+Study
 LocusZoom_folder             = args.grandfolder+'/Standard/LocusZoom/'+Study
 Population                   = args.population
-BaselineDIR                  = ldsc_path+'/Annotations/EUR/Baseline/baseline'#"/ysm-gpfs/pi/zhao/from_louise/ql68/Software/ldsc/Annotations/EUR/Baseline/baseline"
+BaselineDIR                  = ldsc_path+'/Annotations/EUR/baseline/baseline'#"/ysm-gpfs/pi/zhao/from_louise/ql68/Software/ldsc/Annotations/EUR/Baseline/baseline"
 AnnotDIR                     = ldsc_path+'/Annotations/EUR/GenoSkyline_Plus'   #"/ysm-gpfs/pi/zhao/from_louise/ql68/Software/ldsc/Annotations/EUR/GenoSkyline_Plus"
 InputDIR                     = ldsc_path+'/Input'   #"/ysm-gpfs/pi/zhao/from_louise/ql68/Software/ldsc/Input"
 
