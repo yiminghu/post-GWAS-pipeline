@@ -17,6 +17,6 @@ bfile_path = args[7] ## 1000 Genomes genotype data for estimating LD matrix
 
 mat_table_full = read.csv(ref_path, header = T) ## read 
 dir.create(output_path, showWarnings = FALSE) ## mkdir if not exist
-cmds = paste0('module load Python; python ', gnova_path, 'gnova.py ',sumstats,' ',mat_table_full$Curated_file,' --bfile ', bfile_path, 'eur_chr@_SNPmaf5 --out ',out_path,'/',output_prefix,'_',mat_table_full$Code,'_NS.txt;')    
+cmds = paste0('module load Python; python ', gnova_path, 'gnova.py ',sumstats,' ',mat_table_full$Curated_file,' --bfile ', bfile_path, 'eur_chr@_SNPmaf5 --out ',output_path,'/',output_prefix,'_',mat_table_full$Code,'_NS.txt;')    
 writeLines(cmds, paste0(sqpath))
 print(paste0('GNOVA task file written to ', sqpath))
