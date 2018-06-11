@@ -13,8 +13,8 @@ sfolder    = args[5]
 lfolder    = args[6]
 jfolder    = args[7]
 population = args[8]
-locuszoom_path = args[9]
-#locuszoom_path='/ysm-gpfs/pi/zhao/from_louise/bl537/locuszoom/bin/locuszoom'
+
+locuszoom_path='/ysm-gpfs/pi/zhao/from_louise/bl537/locuszoom/bin/locuszoom'
 #### No Need to Change ####
 
 #mfolder = "/ysm-gpfs/pi/zhao/from_louise/bl537/GWAS/VA/ManhattanPlot"
@@ -68,7 +68,7 @@ flag = function(dd){
 }
 
 oodir = paste0(sfolder, "/", aname, ".txt")
-lodir = paste0(jfolder, "/locuszoom_", aname)
+lodir = paste0(jfolder, "/step1b_", aname)
 
 d = a[a$P<5e-8, c('CHROM', 'POS', 'P', 'SNP')]
 colnames(d) = c('CHR', 'BP', 'P', 'SNP')
@@ -87,7 +87,7 @@ if (nrow(d)>=1){
     for (j in 1:max(o$Flag)) {
       oo = o[o$Flag==j, ]
       line = oo[oo$P==min(oo$P),]
-      ll = paste0('module load R; ', locuszoom_path, ' --metal ', adir, ' --refsnp "',line$SNP,'" --chr ',line$CHR,' --flank 500kb --markercol SNP --pvalcol P --plotonly --prefix ', lfolder,'/zoom --pop ', population, ' --build hg19 --source 1000G_March2012')
+      ll = paste0(locuszoom_path, ' --metal ', adir, ' --refsnp "',line$SNP,'" --chr ',line$CHR,' --flank 500kb --markercol SNP --pvalcol P --plotonly --prefix ', lfolder,'/zoom --pop ', population, ' --build hg19 --source 1000G_March2012')
       print(line)
       if (max(i,j)==1){
         write.table(line[, c(1:4)], file=oodir, quote = F, sep ="\t", row.names = F, col.names = T)
@@ -100,8 +100,8 @@ if (nrow(d)>=1){
     }
   }
 }else{
-  write.table('No P<5e-8!', file=oodir, quote = F, sep ="\t", row.names = F, col.names = F)
-  write.table('No P<5e-8!', file=lodir, quote = F, append = T, row.names = F, col.names = F)
+  write.table('No PVALUE<5e-8!', file=oodir, quote = F, sep ="\t", row.names = F, col.names = F)
+  write.table('No PVALUE<5e-8!', file=lodir, quote = F, append = T, row.names = F, col.names = F)
 }
 
 

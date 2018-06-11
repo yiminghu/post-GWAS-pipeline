@@ -22,7 +22,7 @@ Sig_by_FDR_list = 1:length(list.disease)
 pV = rep(-1, length(list.disease))
 
 for (i in 1:length(list.disease)){
-  gnova_output = paste0(ns_output, '/', trait, '_', list.disease[i], ".txt")
+  gnova_output = paste0(ns_output, '/', trait, '_', list.disease[i], "_NS.txt")
   gnova_result = read.table(gnova_output, header=T)
   
   pval = gnova_result[1, "pvalue"]
