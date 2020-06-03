@@ -8,6 +8,11 @@ This repository is a pipeline built for post-GWAS analysis. With GWAS summary st
 ## Overview of the pipeline
 <img src="./pipeline.png" width="900">
 
+**If you use results generated with this pipeline, please cite:**
+* Lu, et al. A powerful approach to estimating annotation-stratified genetic covariance using GWAS summary statistics. The American Journal of Human Genetics, Volume 101, Issue 6, 939 - 964, 2017.
+* Hu, et al. A statistical framework for cross-tissue transcriptome-wide association analysis, Nature Genetics, 2019.
+* Bulik-Sullivan, et al. LD Score Regression Distinguishes Confounding from Polygenicity in Genome-Wide Association Studies. Nature Genetics, 2015.
+
 ## Tutorial
 ### Clone the repo
 ```bash
@@ -246,3 +251,4 @@ utmost_results="${utmost_joint}/${utmost_joint_prefix}_1_17290.txt"
 Rscript --vanilla extract_utmost_results.R ${utmost_results} ${utmost_joint} ${TRAIT_NAME} GeneList.txt
 
 ```
+
