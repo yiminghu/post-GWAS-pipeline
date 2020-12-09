@@ -1,0 +1,104 @@
+cd /net/zhao/yh367/prediction_codes/
+## coord step ##
+python coord_genotypes.py\
+ --gf=/net/zhao/yh367/Kaiser/t2d/eur_t2d_sel1\
+ --ssf=/net/zhao/yh367/PleioPred/t2d_cad_fg/t2d_merged.sumstats\
+ --ssf_format=BASIC\
+ --N=69033\
+ --out=/net/zhao/yh367/Kaiser/t2d/t2d_coord_sel1\
+ --vgf=/net/zhao/yh367/Kaiser/t2d/eur_t2d_sel1\
+ --vbim=/net/zhao/yh367/Kaiser/t2d/eur_t2d_sel1.bim\
+
+python coord_genotypes.py\
+ --gf=/net/zhao/yh367/Kaiser/t2d/eur_t2d_sel1\
+ --ssf=/net/zhao/yh367/PleioPred/t2d_cad_fg/cad_merged.sumstats\
+ --ssf_format=BASIC\
+ --N=86995\
+ --out=/net/zhao/yh367/Kaiser/t2d/cad_coord_sel1\
+ --vgf=/net/zhao/yh367/Kaiser/t2d/eur_t2d_sel1\
+ --vbim=/net/zhao/yh367/Kaiser/t2d/eur_t2d_sel1.bim\
+
+## prior generating ##
+python prior_generating.py\
+ --h5py_file=/net/zhao/yh367/Kaiser/t2d/t2d_coord_sel1\
+ --LDSC_results_file=/net/zhao/ql68/Software/ldsc/Results/T2D/T2D_DIAGRAMv3_Curated_GC1_GS7_withBaseline.results\
+ --output_h2=/net/zhao/yh367/Kaiser/t2d/priors/h2_sel1_file.txt\
+ --output_pT=/net/zhao/yh367/Kaiser/t2d/priors/pT_sel1\
+ --PS=1,0.3,0.1,0.03,0.01,0.003,0.001,0.0003,0.0001,0.00003,0.00001\
+
+## run LDpred ##
+python LDpred_no_output.py\
+ --coord=/net/zhao/yh367/Kaiser/t2d/t2d_coord_sel1\
+ --ld_radius=115\
+ --PS=1\
+ --local_ld_file_prefix=/net/zhao/yh367/Kaiser/t2d/t2d_sel1\
+ --N=69033\
+ --out=/net/zhao/yh367/Kaiser/t2d/output/ldpred_sel1/t2d_p_1\
+
+## run AnnoPred ##
+python AnnoPred_h2.py\
+ --coord=/net/zhao/yh367/Kaiser/t2d/t2d_coord_sel1\
+ --ld_radius=115\
+ --local_ld_file_prefix=/net/zhao/yh367/Kaiser/t2d/t2d_sel1\
+ --ps=1\
+ --PS=/net/zhao/yh367/Kaiser/t2d/priors/h2_sel1_file.txt\
+ --N=69033\
+ --out=/net/zhao/yh367/Kaiser/t2d/output/h2_sel1/t2d_p_1\
+
+python AnnoPred_pT.py\
+ --coord=/net/zhao/yh367/Kaiser/t2d/t2d_coord_sel1\
+ --ld_radius=115\
+ --local_ld_file_prefix=/net/zhao/yh367/Kaiser/t2d/t2d_sel1\
+ --ps=1\
+ --PS=/net/zhao/yh367/Kaiser/t2d/priors/pT_sel1_1.0_file.txt\
+ --N=69033\
+ --out=/net/zhao/yh367/Kaiser/t2d/output/pT_sel1/t2d_p_1\
+
+
+## PleioPred-infinitesimal ##
+# prior files #
+python PleioPrior_generating.py\
+ --h5py_file1=/net/zhao/yh367/Kaiser/t2d/t2d_coord_sel1\
+ --LDSC_results_file1=/net/zhao/ql68/Software/ldsc/Results/T2D/T2D_DIAGRAMv3_Curated_GC1_GS7_withBaseline.results\
+ --h5py_file2=/net/zhao/yh367/Kaiser/t2d/cad_coord_sel1\
+ --LDSC_results_file2=/net/zhao/ql68/Software/ldsc/Results/CAD/CAD_CARDIoGRAM_Curated_GC1_GS7_withBaseline.results\
+ --output_anno_h2=/net/zhao/yh367/Kaiser/t2d/priors/t2d_cad_anno_sel1_file.txt\
+ --output_ld_h2=/net/zhao/yh367/Kaiser/t2d/priors/t2d_cad_ld_sel1_file.txt\
+
+python PleioPred_no_comp.py\
+ --coord_D1=/net/zhao/yh367/Kaiser/t2d/t2d_coord_sel1\
+ --coord_D2=/net/zhao/yh367/Kaiser/t2d/cad_coord_sel1\
+ --N1=69033 --N2=86995 --rho=0.1\
+ --local_ld_prefix=/net/zhao/yh367/Kaiser/t2d/t2d_cad_sel1\
+ --ld_radius=115\
+ --hfile=/net/zhao/yh367/Kaiser/t2d/priors/t2d_cad_anno_sel1_file.txt\
+ --out=/net/zhao/yh367/Kaiser/t2d/output/pleio_inf/0.1/t2d_cad_sel1\
+
+
+## PleioPred-non-infinitesimal ##
+python PleioPred_bi_mcmc.py\
+ --coord_D1=/net/zhao/yh367/Kaiser/t2d/t2d_coord_sel1\
+ --coord_D2=/net/zhao/yh367/Kaiser/t2d/cad_coord_sel1\
+ --N1=69033 --N2=86995\
+ --zero_jump_prob=0.05 --num_iter=500 --burn_in=200\
+ --init_PV=0.25,0.25,0.25,0.25\
+ --init_betas=/net/zhao/yh367/Kaiser/t2d/priors/t2d_cad_anno_initial_sel1.pickled.gz\
+ --alpha=1,1,1,1\
+ --local_ld_prefix=/net/zhao/yh367/Kaiser/t2d/t2d_cad_sel1\
+ --ld_radius=115\
+ --hfile=/net/zhao/yh367/Kaiser/t2d/priors/t2d_cad_anno_sel1_file.txt\
+ --out=/net/zhao/yh367/Kaiser/t2d/output/pleio_non_inf/t2d_cad_sel1\
+
+python PleioPred_bi_mcmc.py\
+ --coord_D1=/net/zhao/yh367/Kaiser/t2d/t2d_coord_sel1\
+ --coord_D2=/net/zhao/yh367/Kaiser/t2d/cad_coord_sel1\
+ --N1=69033 --N2=86995\
+ --zero_jump_prob=0.05 --num_iter=500 --burn_in=200\
+ --init_PV=0.25,0.25,0.25,0.25\
+ --init_betas=/net/zhao/yh367/Kaiser/t2d/priors/t2d_cad_ld_initial_sel1.pickled.gz\
+ --alpha=1,1,1,1\
+ --local_ld_prefix=/net/zhao/yh367/Kaiser/t2d/t2d_cad_sel1\
+ --ld_radius=115\
+ --hfile=/net/zhao/yh367/Kaiser/t2d/priors/t2d_cad_ld_sel1_file.txt\
+ --out=/net/zhao/yh367/Kaiser/t2d/output/pleio_non_inf_ld/t2d_cad_sel1\
+ --user_h2
