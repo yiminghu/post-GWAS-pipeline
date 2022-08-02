@@ -86,7 +86,8 @@ wget https://data.broadinstitute.org/alkesgroup/LDSCORE/1000G_Phase3_baseline_ld
 tar xvzf 1000G_Phase3_baseline_ldscores.tgz
 ## download GenoSkyline_Plus annotations
 cd ../GenoSkyline_Plus
-wget http://genocanyon.med.yale.edu/GenoSkylineFiles/GenoSkylinePlus/LD_score_files_1KGphase3.tar.gz
+## Note this address has expired http://genocanyon.med.yale.edu/GenoSkylineFiles/GenoSkylinePlus/LD_score_files_1KGphase3.tar.gz
+wget http://zhaocenter.org/GenoSkylineFiles/GenoSkylinePlus/LD_score_files_1KGphase3.tar.gz
 tar xvzf LD_score_files_1KGphase3.tar.gz
 
 #wget https://data.broadinstitute.org/alkesgroup/LDSCORE/1000G_Phase1_baseline_ldscores.tgz
